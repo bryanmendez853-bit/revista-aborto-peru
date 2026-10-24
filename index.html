@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El aborto en las provincias del Perú — Entre la vida y el derecho</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F3FF; --ink:#14123B; --soft:#5a5780; --card:#ffffff;
+  --magenta:#FF2E88; --lemon:#FFE94A; --mint:#3DF2C3; --sky:#5AA8FF; --orange:#FF8A3D;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#14123B;--ink:#F6F3FF;--soft:#b9b5e6;--card:#1e1b52}
+}
+:root[data-theme="dark"]{--bg:#14123B;--ink:#F6F3FF;--soft:#b9b5e6;--card:#1e1b52}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1;margin:0}
+a{color:inherit}
+#bar{position:fixed;top:0;left:0;height:5px;width:0;background:linear-gradient(90deg,var(--magenta),var(--lemon),var(--mint));z-index:20}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:grid;align-content:center;padding:6vw 6vw 14vw;background:#14123B;color:#F6F3FF;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.75;will-change:transform}
+.b1{width:46vw;height:46vw;background:var(--magenta);top:-12vw;right:-10vw}
+.b2{width:34vw;height:34vw;background:var(--mint);bottom:-8vw;left:-8vw;opacity:.55}
+.b3{width:22vw;height:22vw;background:var(--lemon);top:30%;left:48%;opacity:.5}
+.hero>*:not(.blob){position:relative}
+.issue{font-weight:500;letter-spacing:.04em;margin-bottom:2vw}
+.hero h1{font-size:clamp(3rem,11vw,10rem);font-weight:800;letter-spacing:-.04em}
+.hero h1 span{display:block;opacity:0;transform:translateY(60%) rotate(2deg);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 span:nth-child(2){animation-delay:.18s;color:var(--lemon);margin-left:8vw}
+.hero p{max-width:34ch;font-size:1.2rem;margin:2.2rem 0 0}
+@keyframes rise{to{opacity:1;transform:none}}
+.scrollhint{position:absolute;right:6vw;bottom:6vw;font-weight:500;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(10px)}}
+
+/* MARQUEE */
+.marquee{background:var(--lemon);color:#14123B;overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1.4deg);margin:-7vw -3vw 0;position:relative;z-index:2}
+.marquee div{display:inline-block;animation:run 22s linear infinite;font:800 1.7rem "Bricolage Grotesque",sans-serif}
+.marquee span{margin:0 1.6rem}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* PRESENTACIONES */
+.wrap{padding:12vw 6vw 4vw;max-width:1280px;margin:0 auto}
+.wrap>h2{font-size:clamp(2.2rem,6vw,4.5rem);letter-spacing:-.03em;max-width:14ch}
+.wrap>p{color:var(--soft);max-width:48ch;margin:1.2rem 0 3rem}
+.people{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.person{grid-column:span 2;border-radius:28px;padding:26px;min-height:300px;color:#14123B;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s,border-radius .3s;position:relative;overflow:hidden;transform-style:preserve-3d}
+.person:nth-child(1),.person:nth-child(2){grid-column:span 3}
+.person:hover{transform:translateY(-8px) rotate(-1deg);border-radius:60px 28px 60px 28px}
+.avatar{width:92px;height:92px;border-radius:50%;background:#14123B;color:var(--c);display:grid;place-items:center;font:800 2.4rem "Bricolage Grotesque",sans-serif}
+.person h3{font-size:1.6rem;letter-spacing:-.02em;margin-top:1rem}
+.person small{font-size:1rem;opacity:.8}
+.person em{font-style:normal;font-weight:500;border-bottom:2px solid currentColor;align-self:flex-start}
+
+/* ARTÍCULOS */
+.art{padding:12vw 6vw;background:var(--c);color:#14123B;position:relative;overflow:hidden}
+.art .in{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;gap:5vw;align-items:start}
+.art:nth-of-type(even) .in{direction:rtl}
+.art:nth-of-type(even) .in>*{direction:ltr}
+.giant{font:800 clamp(8rem,28vw,24rem)/.8 "Bricolage Grotesque",sans-serif;opacity:.22;letter-spacing:-.06em;will-change:transform}
+.art h2{font-size:clamp(2.1rem,5vw,4rem);letter-spacing:-.03em;margin:.4rem 0 1rem}
+.art .who{font-weight:500}
+.art .lead{font-size:1.3rem;line-height:1.45;margin:0 0 1.2rem}
+.more{max-height:0;overflow:hidden;transition:max-height .6s ease}
+.more p{margin:0 0 1rem}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.4rem}
+.btn{border:2px solid #14123B;background:transparent;color:#14123B;border-radius:999px;padding:12px 22px;font:500 1rem "DM Sans",sans-serif;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.btn:hover{background:#14123B;color:#fff;transform:scale(1.05)}
+.btn.yt{background:#14123B;color:#fff}
+.btn.yt:hover{background:#fff;color:#14123B}
+.btn:focus-visible,.person:focus-visible{outline:3px solid #14123B;outline-offset:3px}
+
+.bars{margin:0 0 1.2rem}.bars p{margin:0 0 .7rem;font-size:.95rem}.bar{display:grid;grid-template-columns:7.5rem 1fr 3rem;align-items:center;gap:10px;margin:6px 0;font-weight:500}.bar i{display:block;height:16px;border-radius:99px;background:#14123B;width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1) .3s}.on .bar i{width:var(--w)}.bar u{text-decoration:none;font-weight:800}
+footer{padding:8vw 6vw;text-align:center}
+footer h2{font-size:clamp(2rem,6vw,4rem);margin-bottom:1rem}
+footer p{color:var(--soft)}
+.top{display:inline-block;margin-top:1.5rem;padding:12px 24px;border-radius:999px;background:var(--magenta);color:#fff;text-decoration:none;font-weight:500}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .8s}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:800px){
+  .people{grid-template-columns:1fr}
+  .person,.person:nth-child(1),.person:nth-child(2){grid-column:auto;min-height:230px}
+  .art .in{grid-template-columns:1fr}
+  .art:nth-of-type(even) .in{direction:ltr}
+  .giant{font-size:34vw}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .hero h1 span,.rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="issue">El aborto en las provincias del Perú · UNTELS</div>
+  <h1><span>Entre la vida</span><span>y el derecho</span></h1>
+  <p>Un tema social, ético y legal que genera debate: desigualdades en el acceso a la salud, argumentos a favor y en contra, y la ley. Cinco miradas para una reflexión crítica, informada y respetuosa.</p>
+  <div class="scrollhint">Baja para conocerlas ↓</div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div id="mq"></div></div>
+
+<section class="wrap" id="personas">
+  <h2 class="rv">Cinco autores, cinco miradas</h2>
+  <p class="rv">Toca una tarjeta para ir a su subtema.</p>
+  <div class="people" id="people"></div>
+</section>
+
+<main id="arts"></main>
+
+<footer>
+  <h2>Gracias por leer</h2>
+  <p>El aborto involucra derechos, salud y vida humana. Conocer todas las posturas ayuda a decidir con criterio.</p>
+  <a class="top" href="#">Volver arriba</a>
+</footer>
+
+<script>
+/* EDITA AQUÍ: nombres, textos y enlaces de YouTube (campo "yt") */
+var P=[
+ {n:"Jhon Anderson Chura Mamani",r:"Ingeniería de Sistemas · UNTELS",c:"#FF2E88",
+  t:"Cuando la ley no alcanza",
+  lead:"Regulación legal del aborto en el país y deficiencias de la norma: aborto terapéutico, aborto por violación y obstáculos al aplicar la ley.",
+  b:["Jhon cursa el tercer ciclo de Ingeniería de Sistemas en la UNTELS. Le apasionan la programación y el desarrollo de software; fuera de clases hace deporte, sale con amistades y pasa tiempo en familia.","Eligió este subtema porque el aborto divide opiniones y se vincula con la salud, los derechos humanos, el ordenamiento jurídico y el amparo de niñas y adolescentes."],
+  yt:"https://www.youtube.com/results?search_query=aborto+terap%C3%A9utico+Per%C3%BA+ley"},
+ {n:"Bryan Enrrique Méndez Huamán",r:"Ingeniería de Sistemas · UNTELS",c:"#FFE94A",
+  t:"Penalizar o despenalizar: ¿qué resulta?",
+  lead:"Efectividad y consecuencias de la penalización o despenalización del aborto: impacto en salud pública, abortos clandestinos y mortalidad materna.",
+  b:["Bryan está en el tercer ciclo de Ingeniería de Sistemas en la UNTELS. Siente pasión por la tecnología, con interés especial en la programación y el desarrollo de software.","Fuera del ámbito académico se mantiene activo haciendo deporte, comparte con sus amistades y disfruta del tiempo en familia."],
+  yt:"https://www.youtube.com/results?search_query=aborto+clandestino+mortalidad+materna+Per%C3%BA"},
+ {n:"Elver Alex Alarcón Quicaño",r:"Ingeniería de Sistemas · UNTELS",c:"#3DF2C3",
+  t:"La defensa de la vida desde la concepción",
+  lead:"Argumentos en contra del aborto: el derecho a la vida del concebido, las posturas éticas y religiosas, y la objeción de conciencia.",
+  b:["Elver vive en San Juan de Miraflores y estudia Ingeniería de Sistemas en la UNTELS. Para él, la carrera no es solo programar: también es comprender problemas, analizar alternativas y crear soluciones eficientes.","Desarrolla este subtema porque analizar los argumentos en contra permite entender por qué muchas personas defienden la protección de la vida desde la concepción, y contribuye a una reflexión más informada."],
+  yt:"https://www.youtube.com/results?search_query=derecho+a+la+vida+aborto+Per%C3%BA+debate"},
+ {n:"Alvaro Manuel Henry Sullca Quispe",r:"Ingeniería de Sistemas · UNTELS",c:"#5AA8FF",
+  t:"Autonomía, salud y protección",
+  lead:"Argumentos a favor de la despenalización: autonomía de la mujer, salud pública y casos de violación o riesgo para la vida o salud de la gestante.",
+  b:["Alvaro estudia Ingeniería de Sistemas en la UNTELS. Cree que abordar temas sociales desde distintas perspectivas ayuda a formar una opinión más informada.","La autonomía plantea que la mujer participe en las decisiones sobre su cuerpo y su salud. El enfoque de salud pública analiza qué ocurre cuando no hay acceso a servicios médicos seguros. Los casos de violación o de riesgo para la gestante deben analizarse con responsabilidad y sensibilidad."],
+  yt:"https://www.youtube.com/results?search_query=despenalizaci%C3%B3n+del+aborto+argumentos+salud+p%C3%BAblica"},
+ {n:"Fabrizio Mormontoy Guia",r:"Ingeniería de Sistemas · UNTELS",c:"#FF8A3D",
+  t:"Cuando la distancia decide",
+  lead:"Acceso desigual a la salud reproductiva y aborto clandestino en las regiones del Perú: Lima y Callao, norte, centro, sur y oriente.",
+  x:'<div class="bars" aria-label="Porcentaje de mujeres de 18 a 49 años que refiere haberse realizado un aborto, por macrorregión"><p>Mujeres de 18 a 49 años que refieren haber abortado, según el infográfico de la portada:</p><div class="bar" style="--w:26%"><b>Oriente</b><i></i><u>26%</u></div><div class="bar" style="--w:21%"><b>Sur</b><i></i><u>21%</u></div><div class="bar" style="--w:19%"><b>Centro</b><i></i><u>19%</u></div><div class="bar" style="--w:17%"><b>Lima y Callao</b><i></i><u>17%</u></div><div class="bar" style="--w:14%"><b>Norte</b><i></i><u>14%</u></div></div>',
+  b:["Fabrizio compara cómo cambian las cifras y las condiciones entre regiones, y por qué. Revisa factores como la distancia a los servicios de salud, la escasez de personal capacitado, la falta de información y la pobreza, y qué consecuencias tiene para las mujeres no recibir atención segura y oportuna.","Lo considera necesario porque el debate suele centrarse en Lima, mientras que en las provincias las mujeres enfrentan más obstáculos y menos recursos. Conocer esa realidad permite discutirlo con datos."],
+  yt:"https://www.youtube.com/results?search_query=salud+reproductiva+acceso+desigual+regiones+Per%C3%BA"}
+];
+
+var $=function(s){return document.querySelector(s)};
+var mq=P.map(function(p){return "<span>"+p.n+"</span><span>✦</span>"}).join("");
+$("#mq").innerHTML=mq+mq;
+
+$("#people").innerHTML=P.map(function(p,i){
+  return '<a class="person rv" href="#a'+i+'" style="background:'+p.c+';--c:'+p.c+'">'+
+    '<div class="avatar">'+p.n.charAt(0)+'</div>'+
+    '<div><h3>'+p.n+'</h3><small>'+p.r+'</small></div>'+
+    '<em>Leer su subtema</em></a>';
+}).join("");
+
+$("#arts").innerHTML=P.map(function(p,i){
+  return '<article class="art" id="a'+i+'" style="--c:'+p.c+'"><div class="in">'+
+   '<div class="giant" data-sp="'+(i%2?-0.08:0.08)+'">'+(i+1)+'</div>'+
+   '<div class="rv"><div class="who">'+p.n+' · '+p.r+'</div>'+
+   '<h2>'+p.t+'</h2><p class="lead">'+p.lead+'</p>'+(p.x||'')+
+   '<div class="more" id="m'+i+'">'+p.b.map(function(x){return "<p>"+x+"</p>"}).join("")+'</div>'+
+   '<div class="btns"><button class="btn" data-i="'+i+'" aria-expanded="false" aria-controls="m'+i+'">Seguir leyendo</button>'+
+   '<a class="btn yt" href="'+p.yt+'" target="_blank" rel="noopener">▶ Ver en YouTube</a></div></div>'+
+  '</div></article>';
+}).join("");
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest("button[data-i]"); if(!b) return;
+  var m=document.getElementById("m"+b.dataset.i), open=b.getAttribute("aria-expanded")==="true";
+  m.style.maxHeight=open?"0":m.scrollHeight+"px";
+  b.setAttribute("aria-expanded",String(!open));
+  b.textContent=open?"Seguir leyendo":"Cerrar";
+});
+
+/* revelar al hacer scroll */
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll(".rv").forEach(function(el,i){el.style.transitionDelay=(i%3)*0.08+"s";io.observe(el)});
+
+/* barra de progreso + parallax */
+var bar=$("#bar"),gs=document.querySelectorAll(".giant"),bl=document.querySelectorAll(".blob");
+function onS(){
+  var h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(h>0?scrollY/h*100:0)+"%";
+  bl.forEach(function(b,i){b.style.transform="translateY("+scrollY*(0.12+i*0.06)+"px)"});
+  gs.forEach(function(g){var r=g.getBoundingClientRect();g.style.transform="translateY("+((r.top-innerHeight/2)*parseFloat(g.dataset.sp))+"px)"});
+}
+addEventListener("scroll",onS,{passive:true});onS();
+</script>
+</body>
+</html>
