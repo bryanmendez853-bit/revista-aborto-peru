@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0"></script>
 :root{
   --bg:#F2F8F7; --ink:#0F2E3D; --soft:#4d6b73; --card:#ffffff;
   --magenta:#17807C; --lemon:#BFE8DD; --mint:#7FB7E0; --sky:#7FB7E0; --orange:#F2A99B;
@@ -266,7 +267,7 @@ crender();
 
 var pw=$("#pw"),pwi=$("#pwi");
 function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
-function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe}}
+function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe"}}
 $("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
 $("#pwb").addEventListener("click",pwGo);
 pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
@@ -661,6 +662,185 @@ document.addEventListener("keyup",function(e){
 });
 addEventListener("blur",function(){KEY.l=KEY.r=KEY.d=KEY.f=0});
 
+  /* ===== ADAPTADOR ONLINE (Supabase Realtime). Rellena URL y KEY ===== */
+(function(){
+var URL="https://TU-PROYECTO.supabase.co",KEY="TU_ANON_KEY";
+var me=Math.random().toString(36).slice(2,10),st={},list=[],ch=null,ready=null;
+function build(){var s=ch.presenceState(),a=[];for(var k in s){var p=s[k][s[k].length-1];a.push({peer:k,kind:"viewer",isMe:k===me,sameTab:k===me,presence:p.p||{}})}list=a}
+var room={peers:function(){return list},presence:function(patch){for(var k in patch){if(patch[k]===null)delete st[k];else st[k]=patch[k]}return ready.then(function(){return ch.track({p:st})})}};
+window.claude={use:function(n){if(n!=="room")return Promise.resolve(null);if(!ready){var sb=supabase.createClient(URL,KEY);ch=sb.channel("revista-juego",{config:{presence:{key:me}}});ch.on("presence",{event:"sync"},build);ready=new Promise(function(res){ch.subscribe(function(s){if(s==="SUBSCRIBED"){ch.track({p:st});res()}})})}return ready.then(function(){return room})}}
+})();
+
+/* ===== AMPLIACIÓN: HISTORIA + ONLINE + GRÁFICOS ===== */
+(function(){
+var PAL=[[0xcfeee8,0x9fd3c7,0x17807C,0x17807C],[0xf7d9c4,0xf0c9a0,0xd9774a,0xb5532e],[0x1c2b4a,0x2f3f6b,0x7f9cf0,0x5fb0a0],[0xe8d9f5,0xc8b4e3,0x8a5fd0,0x6a3fb0],[0xd6f0c8,0x9fcf86,0x3f9a3f,0x2f7a2f],[0xf5e6b8,0xe0c070,0xc09020,0x8a6410],[0xc8e4f5,0xa0c8e8,0x4f8fd0,0x2f6fb0],[0x3a1d2e,0x4a2a3d,0xd04a4a,0xd04a4a],[0xf8d0e0,0xe8a0c0,0xd04f8f,0xa02f6f],[0x101820,0x1c2a38,0x30e0c0,0x20a090]];
+var WN=["Valle del Amanecer","Costa Dorada","Bosque Nocturno","Dunas Violeta","Selva Esmeralda","Desierto de Oro","Glaciar Azul","Volcán Carmesí","Jardín Rosa","Abismo Neón"];
+var LN=["Tu criatura despierta y sigue el rastro de los corazones perdidos.","El jefe cae, pero el camino continúa más allá del horizonte.","La noche trae sombras más rápidas.","Las dunas esconden un eco que te llama.","La selva se cierra: solo avanza quien salta a tiempo.","El oro del desierto pesa, pero tú sigues ligero.","El hielo cruje bajo tus pasos.","El volcán ruge; el jefe es cada vez más fuerte.","Un jardín de calma antes de la última prueba.","Al fondo del abismo brilla la salida."];
+var TH0=JSON.stringify(TH),RN=null,OL={on:0,t:0,p:0,cd:0,seen:{},mid:0,h:""},GM={},NK=String(100+Math.floor(Math.random()*900));
+dMenu.style.overflow="auto";
+function B(a,l){return '<button class="lk" data-a="'+a+'" type="button" style="padding:7px 18px">'+l+'</button>'}
+function H(t,s){return '<h3 style="font-size:1.7rem;margin:0">'+t+'</h3><p>'+s+'</p>'}
+function SV(){try{return +localStorage.getItem("dg-story")||0}catch(e){return 0}}
+function SS(v){try{if(v>SV())localStorage.setItem("dg-story",String(v))}catch(e){}}
+function cl(v,a,b){return Math.max(a,Math.min(b,v))}
+function hs(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)}
+function pe(){return RN?RN.peers().filter(function(p){return p.kind==="viewer"}):[]}
+function put(h){if(OL.h===h)return;OL.h=h;dMenu.innerHTML=h;dMenu.classList.add("on")}
+
+/* ---------- MENÚS ---------- */
+showMenu=function(k,t,s){
+ OL.h="";var h=H(t,s);
+ if(k==="menu"){var v=SV();h=H("Salta y esquiva","Historia: 25 mundos y 25 jefes · Online: carrera de 3 o más · Récord infinito: "+dBest(0)+" pts")+B("story",v?"Historia · continuar (mundo "+(v+1)+"/25)":"Modo historia")+(v?B("story0","Historia · desde cero"):"")+B("online","Online (3+ jugadores)")+B("inf","Modo infinito")}
+ else if(D&&D.online){drawRank();return}
+ else if(D&&D.story){
+  if(k==="win"){SS(D.w+1);h=D.w>=24?H("¡Historia completada!","Superaste los 25 mundos · "+Math.floor(D.sc)+" pts")+B("menu","Menú"):H("Mundo "+(D.w+1)+" superado",LN[D.w%10]+" · "+Math.floor(D.sc)+" pts")+B("next","Siguiente: "+WN[(D.w+1)%10])+B("menu","Menú")}
+  else h+=B("retry","Reintentar mundo "+(D.w+1))+B("menu","Menú")}
+ else h+=B("again","Jugar de nuevo")+B("menu","Menú");
+ dMenu.innerHTML=h;dMenu.classList.add("on");var b=dMenu.querySelector("button");if(b)b.focus()
+};
+
+/* ---------- HISTORIA ---------- */
+var _n=dNew;
+dNew=function(m,o){
+ o=o||{};TH=JSON.parse(TH0);
+ if(o.story){var w=o.w,p=PAL[w%10];
+  TH.forEach(function(t,i){t.bg=p[0];t.gr=p[1];t.st=p[2];t.ob=p[3];
+   if(i<3){t.n="Mundo "+(w+1)+" · "+WN[w%10]+" · Nivel "+(i+1);t.len=Math.round((560+w*50)*(1+i*.25));t.v0=Math.min(22,11+w*.45+i*1.2);t.v1=Math.min(26,t.v0+2+i*.4);t.gap=Math.max(.6,1.25-w*.02-i*.1)}
+   else{t.n="Jefe del mundo "+(w+1);t.v0=t.v1=Math.min(15,11+w*.2)}})}
+ _n(m);
+ if(o.story){D.story=1;D.w=o.w;dBan("Mundo "+(o.w+1)+" · "+WN[o.w%10],2.6)}
+ if(o.online)D.online=1
+};
+var _bs=dBoss;
+dBoss=function(){_bs();if(D.story){var b=D.boss;b.hp=b.max=24+D.w*3;b.at=Math.max(1.2,2.2-D.w*.04)}};
+function story(w){dNew("adv",{story:1,w:Math.min(24,w)})}
+
+/* ---------- ONLINE (presencia en tiempo real) ---------- */
+function noRoom(){put(H("Online no disponible","Este modo necesita la revista publicada con salas en tiempo real e iniciar sesión.")+B("leave","Volver"))}
+function lobby(){
+ OL.h="";if(!(window.claude&&claude.use))return noRoom();
+ claude.use("room").then(function(r){
+  if(!r)return noRoom();
+  RN=r;OL.seen={};pe().forEach(function(p){if(p.presence.go)OL.seen[p.presence.go]=1});
+  RN.presence({st:"lobby",n:NK,go:null,m:null,a:null,d:null});
+  OL.on=1;OL.cd=0;clearInterval(OL.t);OL.t=setInterval(tick,500);tick()
+ }).catch(noRoom)
+}
+function tick(){
+ if(!OL.on||!RN)return;
+ var all=pe(),L=all.filter(function(p){return p.presence.st==="lobby"}),ng=0;
+ all.forEach(function(p){var q=p.presence.go;if(q&&!p.isMe&&!OL.seen[q])ng=q});
+ if(ng){OL.seen[ng]=1;begin(ng);return}
+ if(L.length>=3){
+  if(!OL.cd)OL.cd=Date.now()+5000;
+  var left=Math.max(0,Math.ceil((OL.cd-Date.now())/1000)),ids=L.map(function(p){return p.peer}).sort(),me=L.filter(function(p){return p.isMe&&p.sameTab})[0];
+  if(left<=0&&me&&me.peer===ids[0]){var id=1+Math.floor(Math.random()*1e9);OL.seen[id]=1;RN.presence({go:id});begin(id);return}
+  put(H("¡Sala lista!","Jugadores: "+L.length+" · empieza en "+left+"…")+B("leave","Salir"))
+ }else{OL.cd=0;put(H("Sala online","Esperando jugadores… "+L.length+" de 3 como mínimo. Abre la revista en otros dispositivos.")+B("leave","Salir"))}
+}
+function begin(id){
+ OL.on=0;clearInterval(OL.t);OL.mid=id;
+ RN.presence({st:"play",m:id,a:1,d:0,x:0,y:0,n:NK});
+ dNew("inf",{online:1});clearInterval(OL.p);OL.p=setInterval(net,200)
+}
+function net(){
+ if(!RN||!D||!D.online)return;var over=D.state==="over";
+ RN.presence({d:Math.floor(D.dist),x:Math.round(D.x*10)/10,y:Math.round(D.y*10)/10,a:over?0:1});
+ if(over)drawRank()
+}
+function rk(){
+ return pe().filter(function(p){return p.presence.m===OL.mid}).map(function(p){
+  var q=p.presence,me=p.isMe&&p.sameTab;
+  return {me:me,n:String(q.n||"").replace(/\D/g,"").slice(0,3),d:me&&D?Math.floor(D.dist):Math.floor(+q.d||0),a:me&&D?(D.state==="over"?0:1):(q.a?1:0)}
+ }).sort(function(x,y){return y.d-x.d})
+}
+function drawRank(){
+ var M=rk(),al=M.filter(function(x){return x.a}).length;
+ put(H(al?"Caíste · esperando":"¡Fin de la carrera!",M.map(function(x,i){return (i+1)+". "+(x.me?"Tú":"Jugador "+x.n)+" · "+x.d+" m"+(x.a?" · corriendo":"")}).join("<br>"))+(al?"":B("lobby","Volver a la sala"))+B("leave","Salir"))
+}
+function gh(){
+ var s={};
+ pe().forEach(function(p){
+  var q=p.presence;if(p.isMe||q.m!==OL.mid||!q.a)return;s[p.peer]=1;
+  var m=GM[p.peer];
+  if(!m){var c=new THREE.Color().setHSL((hs(p.peer)%360)/360,.75,.6);m=GM[p.peer]=new THREE.Mesh(G3.sph,new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.5,transparent:true,opacity:.6}));m.scale.set(.6,.5,.8);G3.scene.add(m)}
+  m.position.set(cl(+q.x||0,-4.6,4.6),.55+cl(+q.y||0,0,6),-cl((+q.d||0)-D.dist,-6,30))
+ });
+ for(var k in GM)if(!s[k]){G3.scene.remove(GM[k]);delete GM[k]}
+}
+function clr(){if(G3)for(var k in GM){G3.scene.remove(GM[k]);delete GM[k]}}
+function leave(){
+ OL.on=0;clearInterval(OL.t);clearInterval(OL.p);
+ if(RN)RN.presence({st:null,go:null,m:null,a:null,d:null,x:null,y:null});
+ RN=null;clr()
+}
+var _r=dRender;
+dRender=function(){
+ var on=D&&D.online&&RN&&G3;
+ if(on)gh();
+ _r();
+ if(on&&D.state!=="over"){var M=rk(),me=Math.floor(D.dist);$("#dl").textContent="Puesto "+(1+M.filter(function(x){return x.d>me}).length)+"/"+M.length+" · "+me+" m"}
+};
+dMenu.addEventListener("click",function(e){
+ var a=e.target.dataset&&e.target.dataset.a;if(!a||!G3)return;
+ if(a==="story")story(SV());
+ else if(a==="story0"){try{localStorage.setItem("dg-story","0")}catch(x){}story(0)}
+ else if(a==="next")story(D.w+1);
+ else if(a==="retry")story(D.w);
+ else if(a==="online"||a==="lobby"){leave();dInit();lobby()}
+ else if(a==="leave"){leave();dInit()}
+ else if(a==="menu")leave()
+});
+$("#dX").addEventListener("click",leave);
+dg.addEventListener("click",function(e){if(e.target===dg)leave()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")leave()});
+
+/* ---------- GRÁFICOS: sombras, tonemapping, árboles, sol, estrellas ---------- */
+var _b=d3Build;
+d3Build=function(){
+ var G=_b(),sc=G.scene,r=G.r,i;
+ r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.2;
+ sc.children.forEach(function(c){
+  if(c.isDirectionalLight){var sh=c.shadow,k=sh.camera;c.castShadow=true;c.position.set(7,14,6);c.target.position.set(0,0,-14);sc.add(c.target);sh.mapSize.set(2048,2048);k.left=-14;k.right=14;k.top=34;k.bottom=-34;k.near=1;k.far=60;k.updateProjectionMatrix()}
+  if(c.isMesh&&c.geometry.parameters&&c.geometry.parameters.depth===150)c.receiveShadow=true
+ });
+ G.hero.traverse(function(o){if(o.isMesh)o.castShadow=true});
+ var mo=G.mkOb,mb=G.mkBoss;
+ G.mkOb=function(){var o=mo();o.m.traverse(function(x){if(x.isMesh)x.castShadow=true});return o};
+ G.mkBoss=function(){var b=mb();b.traverse(function(x){if(x.isMesh)x.castShadow=true});return b};
+ G.fm=new THREE.MeshStandardMaterial({color:0x17807C,roughness:.9,flatShading:true});
+ G.tm=new THREE.MeshStandardMaterial({color:0x17807C,roughness:1});
+ var cg=new THREE.ConeGeometry(1.3,2.6,7),tg=new THREE.CylinderGeometry(.18,.25,1,6);G.decor=[];
+ for(i=0;i<46;i++){
+  var t=new THREE.Group(),s=.8+Math.random()*1.1,tr=new THREE.Mesh(tg,G.tm);tr.position.y=.5;t.add(tr);
+  var c1=new THREE.Mesh(cg,G.fm);c1.position.y=1.9;t.add(c1);
+  var c2=new THREE.Mesh(cg,G.fm);c2.scale.set(.75,.75,.75);c2.position.y=3;t.add(c2);
+  t.scale.set(s,s,s);t.position.set((i%2?-1:1)*(7.8+Math.random()*10),0,-Math.random()*100+8);
+  t.traverse(function(x){if(x.isMesh)x.castShadow=true});sc.add(t);G.decor.push(t)
+ }
+ var sd=new THREE.Mesh(new THREE.BoxGeometry(140,.4,150),new THREE.MeshStandardMaterial({color:0x9fd3c7,roughness:1}));
+ sd.position.set(0,-.45,-60);sd.receiveShadow=true;sc.add(sd);G.gm2=sd.material;
+ G.disc=new THREE.Mesh(new THREE.SphereGeometry(10,24,16),new THREE.MeshBasicMaterial({color:0xffffff,fog:false}));
+ G.disc.position.set(-30,32,-135);sc.add(G.disc);
+ var sp=[];for(i=0;i<420;i++)sp.push((Math.random()-.5)*190,12+Math.random()*60,-95-Math.random()*30);
+ var sg=new THREE.BufferGeometry();sg.setAttribute("position",new THREE.Float32BufferAttribute(sp,3));
+ G.stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xffffff,size:2,sizeAttenuation:false,fog:false}));
+ G.stars.visible=false;sc.add(G.stars);
+ return G
+};
+var _t=dTheme;
+dTheme=function(t){
+ _t(t);var g=G3;if(!g||!g.fm)return;
+ var h={};new THREE.Color(t.bg).getHSL(h);
+ g.fm.color.set(t.st).multiplyScalar(.85);g.tm.color.set(t.ob).multiplyScalar(.5);g.gm2.color.set(t.gr).multiplyScalar(.8);
+ g.disc.material.color.set(t.st).lerp(new THREE.Color(0xffffff),.55);g.stars.visible=h.l<.3
+};
+var _u=dUpdate;
+dUpdate=function(dt){
+ _u(dt);var g=G3;
+ if(g&&g.decor&&D&&(D.state==="play"||D.state==="trans"))g.decor.forEach(function(m){m.position.z+=D.sp*dt;if(m.position.z>10){m.position.z-=100;m.position.x=(Math.random()<.5?-1:1)*(7.8+Math.random()*10)}})
+};
+})();
 /* revelar al hacer scroll */
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}})},{threshold:.15});
 document.querySelectorAll(".rv").forEach(function(el,i){el.style.transitionDelay=(i%3)*0.08+"s";io.observe(el)});
