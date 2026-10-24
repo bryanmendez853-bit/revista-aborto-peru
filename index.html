@@ -96,6 +96,8 @@ a{color:inherit}
 .cf button{justify-self:start}
 #clist{max-width:640px;margin-top:1.6rem;display:grid;gap:12px}
 .cm{background:var(--card);border-radius:18px;padding:14px 18px}.cm b{display:block;font-size:.95rem}.cm p{margin:.3rem 0 0;overflow-wrap:anywhere}.empty{color:var(--soft)}
+#eg{margin-top:2.5rem;border:0;background:none;color:var(--ink);opacity:.04;font-size:14px;cursor:pointer;padding:12px}#eg:hover,#eg:focus-visible{opacity:.35}
+#pw{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:50}#pw.on{display:grid}#pw>div{background:var(--card);color:var(--ink);padding:24px;border-radius:20px;display:grid;gap:10px;width:min(320px,90vw);text-align:left}#pw input{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--soft);border-radius:12px;padding:10px 12px}#pw small{min-height:1.2em;color:var(--soft)}
 footer{padding:8vw 6vw;text-align:center}
 footer h2{font-size:clamp(2rem,6vw,4rem);margin-bottom:1rem}
 footer p{color:var(--soft)}
@@ -142,8 +144,8 @@ footer p{color:var(--soft)}
 <main id="arts"></main>
 
 <section class="wrap" id="biografias"><h2 class="rv">Biografías</h2><p class="rv">Quiénes escriben esta edición.</p><div class="grid" id="bios"></div></section>
-<section class="wrap" id="videos"><h2 class="rv">Videos</h2><p class="rv">Un video por subtema para seguir aprendiendo.</p><div class="grid" id="vids"></div></section>
-<section class="wrap" id="lecturas"><h2 class="rv">Lecturas</h2><p class="rv">Fuentes para profundizar. Cada enlace abre una búsqueda en Google.</p><div class="lks" id="lects"></div></section>
+<section class="wrap" id="videos"><h2 class="rv">Videos</h2><p class="rv">Un video por subtema. Cada tarjeta abre el video en YouTube.</p><div class="grid" id="vids"></div></section>
+<section class="wrap" id="lecturas"><h2 class="rv">Lecturas</h2><p class="rv">Fuentes para profundizar. Cada enlace abre directamente el documento o la página.</p><div class="lks" id="lects"></div></section>
 <section class="wrap" id="comentarios"><h2 class="rv">Comentarios</h2><p class="rv">Comparte tu opinión con respeto. Los comentarios se guardan solo en este dispositivo.</p>
 <div class="cf rv"><input id="cname" maxlength="40" placeholder="Tu nombre" aria-label="Tu nombre"><select id="csel" aria-label="Artículo"></select><textarea id="ctext" maxlength="500" rows="3" placeholder="Escribe tu comentario" aria-label="Comentario"></textarea><button class="lk" id="csend" type="button">Publicar comentario</button></div><div id="clist"></div></section>
 
@@ -152,6 +154,8 @@ footer p{color:var(--soft)}
   <h2>Gracias por leer</h2>
   <p>El aborto involucra derechos, salud y vida humana. Conocer todas las posturas ayuda a decidir con criterio.</p>
   <a class="top" href="#">Volver arriba</a>
+  <br><button id="eg" type="button" aria-label="Acceso">●</button>
+  <div id="pw" role="dialog" aria-label="Clave"><div><input id="pwi" type="password" placeholder="Clave" autocomplete="off"><button class="lk" id="pwb" type="button">Entrar</button><small id="pwm"></small></div></div>
 </footer>
 
 <script>
@@ -161,28 +165,28 @@ var P=[
   t:"Cuando la ley no alcanza",
   lead:"Regulación legal del aborto en el país y deficiencias de la norma: aborto terapéutico, aborto por violación y obstáculos al aplicar la ley.",
   b:["Jhon cursa el tercer ciclo de Ingeniería de Sistemas en la UNTELS. Le apasionan la programación y el desarrollo de software; fuera de clases hace deporte, sale con amistades y pasa tiempo en familia.","Eligió este subtema porque el aborto divide opiniones y se vincula con la salud, los derechos humanos, el ordenamiento jurídico y el amparo de niñas y adolescentes."],
-  yt:"https://www.youtube.com/results?search_query=aborto+terap%C3%A9utico+Per%C3%BA+ley"},
+  yt:"https://www.youtube.com/watch?v=ak0NxHdDgBI"},
  {n:"Bryan Enrrique Méndez Huamán",r:"Ingeniería de Sistemas · UNTELS",c:"#BFE3F2",
   t:"Penalizar o despenalizar: ¿qué resulta?",
   lead:"Efectividad y consecuencias de la penalización o despenalización del aborto: impacto en salud pública, abortos clandestinos y mortalidad materna.",
   b:["Bryan está en el tercer ciclo de Ingeniería de Sistemas en la UNTELS. Siente pasión por la tecnología, con interés especial en la programación y el desarrollo de software.","Fuera del ámbito académico se mantiene activo haciendo deporte, comparte con sus amistades y disfruta del tiempo en familia."],
-  yt:"https://www.youtube.com/results?search_query=aborto+clandestino+mortalidad+materna+Per%C3%BA"},
+  yt:"https://www.youtube.com/watch?v=levc5z-My6Q"},
  {n:"Elver Alex Alarcón Quicaño",r:"Ingeniería de Sistemas · UNTELS",c:"#CFE6B8",
   t:"La defensa de la vida desde la concepción",
   lead:"Argumentos en contra del aborto: el derecho a la vida del concebido, las posturas éticas y religiosas, y la objeción de conciencia.",
   b:["Elver vive en San Juan de Miraflores y estudia Ingeniería de Sistemas en la UNTELS. Para él, la carrera no es solo programar: también es comprender problemas, analizar alternativas y crear soluciones eficientes.","Desarrolla este subtema porque analizar los argumentos en contra permite entender por qué muchas personas defienden la protección de la vida desde la concepción, y contribuye a una reflexión más informada."],
-  yt:"https://www.youtube.com/results?search_query=derecho+a+la+vida+aborto+Per%C3%BA+debate"},
+  yt:"https://www.youtube.com/playlist?list=PLxN3qp_gCjGxFmCznFWWVuX2zyEqr598U"},
  {n:"Alvaro Manuel Henry Sullca Quispe",r:"Ingeniería de Sistemas · UNTELS",c:"#D9CCEE",
   t:"Autonomía, salud y protección",
   lead:"Argumentos a favor de la despenalización: autonomía de la mujer, salud pública y casos de violación o riesgo para la vida o salud de la gestante.",
   b:["Alvaro estudia Ingeniería de Sistemas en la UNTELS. Cree que abordar temas sociales desde distintas perspectivas ayuda a formar una opinión más informada.","La autonomía plantea que la mujer participe en las decisiones sobre su cuerpo y su salud. El enfoque de salud pública analiza qué ocurre cuando no hay acceso a servicios médicos seguros. Los casos de violación o de riesgo para la gestante deben analizarse con responsabilidad y sensibilidad."],
-  yt:"https://www.youtube.com/results?search_query=despenalizaci%C3%B3n+del+aborto+argumentos+salud+p%C3%BAblica"},
+  yt:"https://www.youtube.com/watch?v=oGMUmJNp1yk"},
  {n:"Fabrizio Mormontoy Guia",r:"Ingeniería de Sistemas · UNTELS",c:"#F5CDBF",
   t:"Cuando la distancia decide",
   lead:"Acceso desigual a la salud reproductiva y aborto clandestino en las regiones del Perú: Lima y Callao, norte, centro, sur y oriente.",
   x:'<div class="bars" aria-label="Porcentaje de mujeres de 18 a 49 años que refiere haberse realizado un aborto, por macrorregión"><p>Mujeres de 18 a 49 años que refieren haber abortado, según el infográfico de la portada:</p><div class="bar" style="--w:26%"><b>Oriente</b><i></i><u>26%</u></div><div class="bar" style="--w:21%"><b>Sur</b><i></i><u>21%</u></div><div class="bar" style="--w:19%"><b>Centro</b><i></i><u>19%</u></div><div class="bar" style="--w:17%"><b>Lima y Callao</b><i></i><u>17%</u></div><div class="bar" style="--w:14%"><b>Norte</b><i></i><u>14%</u></div></div>',
   b:["Fabrizio compara cómo cambian las cifras y las condiciones entre regiones, y por qué. Revisa factores como la distancia a los servicios de salud, la escasez de personal capacitado, la falta de información y la pobreza, y qué consecuencias tiene para las mujeres no recibir atención segura y oportuna.","Lo considera necesario porque el debate suele centrarse en Lima, mientras que en las provincias las mujeres enfrentan más obstáculos y menos recursos. Conocer esa realidad permite discutirlo con datos."],
-  yt:"https://www.youtube.com/results?search_query=salud+reproductiva+acceso+desigual+regiones+Per%C3%BA"}
+  yt:"https://www.youtube.com/watch?v=BRLrf5psMd8"}
 ];
 
 var IL=["<svg viewBox=\"0 0 200 200\"><g fill=\"none\" stroke=\"#0F2E3D\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M100 30v130M60 168h80M40 60h120M40 60l-22 50h44zM160 60l-22 50h44z\"/></g><path d=\"M18 110a22 14 0 0044 0zM138 110a22 14 0 0044 0z\" fill=\"#0F2E3D\"/><circle cx=\"100\" cy=\"28\" r=\"9\" fill=\"#0F2E3D\"/></svg>", "<svg viewBox=\"0 0 200 200\"><rect x=\"70\" y=\"14\" width=\"60\" height=\"60\" rx=\"14\" fill=\"#0F2E3D\"/><path d=\"M100 28v32M84 44h32\" stroke=\"#fff\" stroke-width=\"9\" stroke-linecap=\"round\"/><path d=\"M12 128h46l16-34 26 68 22-52 14 18h52\" fill=\"none\" stroke=\"#0F2E3D\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><g fill=\"#0F2E3D\"><rect x=\"30\" y=\"176\" width=\"22\" height=\"14\" rx=\"3\"/><rect x=\"66\" y=\"170\" width=\"22\" height=\"20\" rx=\"3\"/><rect x=\"102\" y=\"164\" width=\"22\" height=\"26\" rx=\"3\"/><rect x=\"138\" y=\"156\" width=\"22\" height=\"34\" rx=\"3\"/></g></svg>", "<svg viewBox=\"0 0 200 200\"><circle cx=\"100\" cy=\"100\" r=\"84\" fill=\"none\" stroke=\"#0F2E3D\" stroke-width=\"5\" stroke-dasharray=\"3 12\" stroke-linecap=\"round\"/><path d=\"M100 160C32 112 38 52 100 82c62-30 68 30 0 78z\" fill=\"#0F2E3D\"/><path d=\"M70 96q8-14 24-10\" fill=\"none\" stroke=\"#fff\" stroke-width=\"6\" stroke-linecap=\"round\"/></svg>", "<svg viewBox=\"0 0 200 200\"><path d=\"M100 22l66 26v46c0 40-30 66-66 82-36-16-66-42-66-82V48z\" fill=\"#0F2E3D\"/><path d=\"M68 100l24 24 42-48\" fill=\"none\" stroke=\"#fff\" stroke-width=\"12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>", "<svg viewBox=\"0 0 200 200\"><g fill=\"#0F2E3D\" stroke=\"#fff\" stroke-width=\"3\" stroke-linejoin=\"round\"><path d=\"M62 24l50-8 14 38-52 8z\" opacity=\".55\"/><path d=\"M112 16l62 44-8 66-40-14-14-38z\" opacity=\".9\"/><path d=\"M74 62l52-8 0 58-36-6z\" opacity=\".7\"/><path d=\"M50 86l24-24 16 44-18 14z\" opacity=\".4\"/><path d=\"M90 106l36 6 40 14-24 56-38-14-26-30z\" opacity=\".6\"/></g><g fill=\"#fff\"><circle cx=\"86\" cy=\"36\" r=\"5\"/><circle cx=\"140\" cy=\"66\" r=\"5\"/><circle cx=\"100\" cy=\"84\" r=\"5\"/><circle cx=\"70\" cy=\"90\" r=\"5\"/><circle cx=\"116\" cy=\"148\" r=\"5\"/></g></svg>"];
@@ -219,13 +223,14 @@ document.addEventListener("click",function(e){
 });
 
 var BIO=["Estudiante de tercer ciclo de Ingeniería de Sistemas en la UNTELS. Le apasiona la tecnología, sobre todo la programación y el desarrollo de software. Fuera de clases disfruta hacer deporte, salir con amistades y pasar tiempo en familia.", "Estudiante de tercer ciclo de Ingeniería de Sistemas en la UNTELS. Siente una gran pasión por la tecnología, con interés especial en la programación y el desarrollo de software. Fuera del ámbito académico se mantiene activo con el deporte, comparte con sus amistades y disfruta del tiempo en familia.", "Estudiante de Ingeniería de Sistemas en la UNTELS; vive en San Juan de Miraflores. Tiene gran interés por la tecnología y la programación, y busca fortalecer sus conocimientos en desarrollo de software y tecnologías emergentes. Cree que la ingeniería también es comprender problemas, analizar alternativas y crear soluciones eficientes.", "Estudiante de Ingeniería de Sistemas en la UNTELS. Durante su formación ha aprendido la importancia de investigar y analizar problemas que afectan a la sociedad, y cree que abordar temas sociales desde distintas perspectivas ayuda a formar una opinión más informada.", "Estudiante de Ingeniería de Sistemas en la UNTELS. Le interesa la programación y el desarrollo de software, y lleva cursos como Taller de Programación 1, donde trabaja con Java. Considera importante investigar temas sociales desde fuentes confiables."];
-var LEC=[["Código Penal peruano: el delito de aborto", "https://www.google.com/search?q=Código+Penal+Perú+delito+de+aborto"], ["Aborto terapéutico: guía técnica del Ministerio de Salud", "https://www.google.com/search?q=Minsa+guía+técnica+aborto+terapéutico+Perú"], ["ENDES (INEI): salud reproductiva en el Perú", "https://www.google.com/search?q=INEI+ENDES+salud+reproductiva+Perú"], ["Defensoría del Pueblo: aborto y derechos", "https://www.google.com/search?q=Defensoría+del+Pueblo+aborto+Perú"], ["Organización Mundial de la Salud: aborto sin riesgo", "https://www.google.com/search?q=OMS+aborto+sin+riesgo+datos"]];
+var LEC=[["Código Penal, art. 114: autoaborto y concordancias (LP Derecho)", "https://lpderecho.pe/articulo-114-del-codigo-penal-autoaborto/"], ["Código Penal, art. 119: aborto terapéutico y jurisprudencia (Juris.pe)", "https://juris.pe/?p=52765"], ["Guía técnica del Minsa sobre aborto terapéutico, RM 486-2014 (PDF)", "https://www.diresapuno.gob.pe/wp-content/uploads/2021/05/RM-486-2014-GTN-DE-ABORTO-TERAPEUTICO.pdf"], ["Modificación de la guía técnica, RM 427-2025/MINSA (El Peruano)", "https://busquedas.elperuano.pe/dispositivo/NL/2413707-1"], ["ENDES 2024 Lima Metropolitana: salud reproductiva y materna (INEI, PDF)", "https://proyectos.inei.gob.pe/endes/2024/departamentales/Endes15/pdf/Lima_Metropolitana.pdf"], ["Defensoría del Pueblo y UNFPA: atención a niñas víctimas de violencia sexual (Gestión)", "https://gestion.pe/peru/urge-dar-atencion-integral-de-salud-a-ninas-victimas-de-violaciones-en-peru-noticia/"], ["Organización Mundial de la Salud: aborto (ficha descriptiva)", "https://www.who.int/es/news-room/fact-sheets/detail/abortion"]];
 
 function BD(p,i){return i===1?["Analiza cómo penalizar o despenalizar el aborto influye en la salud pública: la frecuencia de abortos clandestinos y la mortalidad materna."]:(i<4?p.b.slice(1):p.b)}
+var VT=["Aborto terapéutico en Perú: ¿es legal y quién protege los datos de las pacientes?", "Detrás de las sombras: así funciona el aborto clandestino en el Perú", "El aborto: serie La cultura de la vida, cuestiones de bioética", "El aborto en cifras: encuesta a mujeres en el Perú", "Abortos clandestinos al descubierto (¡Paren Todo!)"];
 var SEC=[["biografias","Biografías"],["arts","Artículos"],["videos","Videos"],["lecturas","Lecturas"],["comentarios","Comentarios"]];
 $("#indice").innerHTML=SEC.map(function(x,k){return '<a class="ix rv" href="#'+x[0]+'"><b>'+(k+1)+'</b><span>'+x[1]+'</span></a>'}).join("");
 $("#bios").innerHTML=P.map(function(p,i){return '<div class="card rv"><img src="'+AV[i]+'" alt="Avatar de '+p.n+'"><div><h3>'+p.n+'</h3><p>'+BIO[i]+'</p></div></div>'}).join("");
-$("#vids").innerHTML=P.map(function(p,i){return '<a class="card vid rv" href="'+p.yt+'" target="_blank" rel="noopener"><span class="play">▶</span><div><h3>'+p.t+'</h3><p>Video sobre el subtema de '+p.n.split(" ")[0]+'. Se abre en YouTube.</p></div></a>'}).join("");
+$("#vids").innerHTML=P.map(function(p,i){return '<a class="card vid rv" href="'+p.yt+'" target="_blank" rel="noopener"><span class="play">▶</span><div><h3>'+VT[i]+'</h3><p>Subtema de '+p.n.split(" ")[0]+'. Se abre en YouTube.</p></div></a>'}).join("");
 $("#lects").innerHTML=LEC.map(function(l){return '<a class="lk rv" href="'+l[1]+'" target="_blank" rel="noopener">'+l[0]+'</a>'}).join("");
 $("#csel").innerHTML=P.map(function(p,i){return '<option value="'+i+'">'+p.t+'</option>'}).join("");
 var CK="comentarios-revista-aborto";
@@ -238,6 +243,13 @@ $("#csend").addEventListener("click",function(){var n=$("#cname").value.trim()||
  $("#ctext").value="";crender()});
 crender();
 
+var pw=$("#pw"),pwi=$("#pwi");
+function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
+function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://www.leagueoflegends.com/es-mx/","_blank","noopener")}else{$("#pwm").textContent="Clave incorrecta"}}
+$("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
+$("#pwb").addEventListener("click",pwGo);
+pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
+pw.addEventListener("click",function(e){if(e.target===pw)pwClose()});
 /* revelar al hacer scroll */
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}})},{threshold:.15});
 document.querySelectorAll(".rv").forEach(function(el,i){el.style.transitionDelay=(i%3)*0.08+"s";io.observe(el)});
