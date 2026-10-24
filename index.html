@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0"></script>
+ 
 :root{
   --bg:#F2F8F7; --ink:#0F2E3D; --soft:#4d6b73; --card:#ffffff;
   --magenta:#17807C; --lemon:#BFE8DD; --mint:#7FB7E0; --sky:#7FB7E0; --orange:#F2A99B;
@@ -131,6 +131,7 @@ footer p{color:var(--soft)}
   html{scroll-behavior:auto}
 }
 </style>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0"></script>
 </head>
 <body>
 <div id="bar"></div>
@@ -267,7 +268,7 @@ crender();
 
 var pw=$("#pw"),pwi=$("#pwi");
 function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
-function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe"}}
+function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe")}}
 $("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
 $("#pwb").addEventListener("click",pwGo);
 pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
