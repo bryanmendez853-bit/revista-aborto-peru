@@ -245,7 +245,7 @@ crender();
 
 var pw=$("#pw"),pwi=$("#pwi");
 function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
-function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://www.leagueoflegends.com/es-mx/","_blank","noopener")}else{$("#pwm").textContent="Clave incorrecta"}}
+function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe")}else{$("#pwm").textContent="Clave incorrecta"}}
 $("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
 $("#pwb").addEventListener("click",pwGo);
 pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
