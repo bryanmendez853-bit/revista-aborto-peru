@@ -36,7 +36,7 @@ a{color:inherit}
 .hero h1 span:nth-child(2){animation-delay:.18s;color:var(--lemon);margin-left:8vw}
 .hero p{max-width:34ch;font-size:1.2rem;margin:2.2rem 0 0}
 @keyframes rise{to{opacity:1;transform:none}}
-.scrollhint{position:absolute;right:6vw;bottom:6vw;font-weight:500;animation:bob 1.6s ease-in-out infinite}
+.scrollhint{margin-top:2.5rem;font-weight:500;animation:bob 1.6s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(10px)}}
 
 /* MARQUEE */
@@ -78,6 +78,24 @@ a{color:inherit}
 
 .lc{position:relative}.ill{width:min(250px,68%);margin:-2.5rem 0 0 6%;background:#fff;border-radius:36px 36px 8px 36px;padding:22px;transform:rotate(-3deg)}.art:nth-of-type(even) .ill{transform:rotate(3deg);margin-left:20%}.dq{background:rgba(255,255,255,.55);border-radius:20px;padding:16px 20px;margin:0 0 1.2rem}.dq b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.15rem;margin-bottom:.25rem}.dq p{margin:0}
 .bars{margin:0 0 1.2rem}.bars p{margin:0 0 .7rem;font-size:.95rem}.bar{display:grid;grid-template-columns:7.5rem 1fr 3rem;align-items:center;gap:10px;margin:6px 0;font-weight:500}.bar i{display:block;height:16px;border-radius:99px;background:#0F2E3D;width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1) .3s}.on .bar i{width:var(--w)}.bar u{text-decoration:none;font-weight:800}
+
+.ixg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.ix{display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:20px;background:var(--card);text-decoration:none;font:800 1.25rem "Bricolage Grotesque",sans-serif;transition:transform .25s}
+.ix:hover{transform:translateY(-4px)}.ix b{width:38px;height:38px;border-radius:50%;background:var(--magenta);color:#fff;display:grid;place-items:center;font-size:1.05rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.card{display:flex;gap:16px;align-items:flex-start;background:var(--card);border-radius:24px;padding:20px;text-decoration:none}
+.card img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none;border:3px solid var(--magenta)}
+.card h3{font-size:1.2rem;margin-bottom:.4rem;line-height:1.15}.card p{margin:0;font-size:.95rem;color:var(--soft)}
+.vid{align-items:center;transition:transform .25s}.vid:hover{transform:translateY(-4px)}
+.play{width:56px;height:56px;border-radius:50%;background:var(--magenta);color:#fff;display:grid;place-items:center;flex:none;font-size:1.2rem}
+.lks{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.lk{display:inline-block;border:2px solid var(--ink);color:var(--ink);background:transparent;border-radius:999px;padding:11px 22px;font:500 1rem "DM Sans",sans-serif;text-decoration:none;cursor:pointer}
+.lk:hover,.lk:focus-visible{background:var(--ink);color:var(--bg);outline:none}
+.cf{display:grid;gap:10px;max-width:640px}
+.cf input,.cf select,.cf textarea{font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--soft);border-radius:14px;padding:12px 14px;width:100%}
+.cf button{justify-self:start}
+#clist{max-width:640px;margin-top:1.6rem;display:grid;gap:12px}
+.cm{background:var(--card);border-radius:18px;padding:14px 18px}.cm b{display:block;font-size:.95rem}.cm p{margin:.3rem 0 0;overflow-wrap:anywhere}.empty{color:var(--soft)}
 footer{padding:8vw 6vw;text-align:center}
 footer h2{font-size:clamp(2rem,6vw,4rem);margin-bottom:1rem}
 footer p{color:var(--soft)}
@@ -113,6 +131,8 @@ footer p{color:var(--soft)}
 
 <div class="marquee" aria-hidden="true"><div id="mq"></div></div>
 
+
+<section class="wrap" id="indice-s"><h2 class="rv">Índice</h2><p class="rv">Toca una sección para ir directo a ella.</p><div class="ixg" id="indice"></div></section>
 <section class="wrap" id="personas">
   <h2 class="rv">Cinco autores, cinco miradas</h2>
   <p class="rv">Toca una tarjeta para ir a su subtema.</p>
@@ -120,6 +140,13 @@ footer p{color:var(--soft)}
 </section>
 
 <main id="arts"></main>
+
+<section class="wrap" id="biografias"><h2 class="rv">Biografías</h2><p class="rv">Quiénes escriben esta edición.</p><div class="grid" id="bios"></div></section>
+<section class="wrap" id="videos"><h2 class="rv">Videos</h2><p class="rv">Un video por subtema para seguir aprendiendo.</p><div class="grid" id="vids"></div></section>
+<section class="wrap" id="lecturas"><h2 class="rv">Lecturas</h2><p class="rv">Fuentes para profundizar. Cada enlace abre una búsqueda en Google.</p><div class="lks" id="lects"></div></section>
+<section class="wrap" id="comentarios"><h2 class="rv">Comentarios</h2><p class="rv">Comparte tu opinión con respeto. Los comentarios se guardan solo en este dispositivo.</p>
+<div class="cf rv"><input id="cname" maxlength="40" placeholder="Tu nombre" aria-label="Tu nombre"><select id="csel" aria-label="Artículo"></select><textarea id="ctext" maxlength="500" rows="3" placeholder="Escribe tu comentario" aria-label="Comentario"></textarea><button class="lk" id="csend" type="button">Publicar comentario</button></div><div id="clist"></div></section>
+
 
 <footer>
   <h2>Gracias por leer</h2>
@@ -177,7 +204,7 @@ $("#arts").innerHTML=P.map(function(p,i){
    '<div class="lc"><div class="giant" data-sp="'+(i%2?-0.08:0.08)+'">'+(i+1)+'</div><div class="ill rv" role="img" aria-label="Ilustración sobre el tema">'+IL[i]+'</div></div>'+
    '<div class="rv"><div class="who"><img class="mini" src="'+AV[i]+'" alt="">'+p.n+' · '+p.r+'</div>'+
    '<h2>'+p.t+'</h2><p class="lead">'+p.lead+'</p>'+'<div class="dq"><b>De qué va este tema</b><p>'+DS[i]+'</p></div>'+(p.x||'')+
-   '<div class="more" id="m'+i+'">'+p.b.map(function(x){return "<p>"+x+"</p>"}).join("")+'</div>'+
+   '<div class="more" id="m'+i+'">'+BD(p,i).map(function(x){return "<p>"+x+"</p>"}).join("")+'</div>'+
    '<div class="btns"><button class="btn" data-i="'+i+'" aria-expanded="false" aria-controls="m'+i+'">Seguir leyendo</button>'+
    '<a class="btn yt" href="'+p.yt+'" target="_blank" rel="noopener">▶ Ver en YouTube</a></div></div>'+
   '</div></article>';
@@ -190,6 +217,26 @@ document.addEventListener("click",function(e){
   b.setAttribute("aria-expanded",String(!open));
   b.textContent=open?"Seguir leyendo":"Cerrar";
 });
+
+var BIO=["Estudiante de tercer ciclo de Ingeniería de Sistemas en la UNTELS. Le apasiona la tecnología, sobre todo la programación y el desarrollo de software. Fuera de clases disfruta hacer deporte, salir con amistades y pasar tiempo en familia.", "Estudiante de tercer ciclo de Ingeniería de Sistemas en la UNTELS. Siente una gran pasión por la tecnología, con interés especial en la programación y el desarrollo de software. Fuera del ámbito académico se mantiene activo con el deporte, comparte con sus amistades y disfruta del tiempo en familia.", "Estudiante de Ingeniería de Sistemas en la UNTELS; vive en San Juan de Miraflores. Tiene gran interés por la tecnología y la programación, y busca fortalecer sus conocimientos en desarrollo de software y tecnologías emergentes. Cree que la ingeniería también es comprender problemas, analizar alternativas y crear soluciones eficientes.", "Estudiante de Ingeniería de Sistemas en la UNTELS. Durante su formación ha aprendido la importancia de investigar y analizar problemas que afectan a la sociedad, y cree que abordar temas sociales desde distintas perspectivas ayuda a formar una opinión más informada.", "Estudiante de Ingeniería de Sistemas en la UNTELS. Le interesa la programación y el desarrollo de software, y lleva cursos como Taller de Programación 1, donde trabaja con Java. Considera importante investigar temas sociales desde fuentes confiables."];
+var LEC=[["Código Penal peruano: el delito de aborto", "https://www.google.com/search?q=Código+Penal+Perú+delito+de+aborto"], ["Aborto terapéutico: guía técnica del Ministerio de Salud", "https://www.google.com/search?q=Minsa+guía+técnica+aborto+terapéutico+Perú"], ["ENDES (INEI): salud reproductiva en el Perú", "https://www.google.com/search?q=INEI+ENDES+salud+reproductiva+Perú"], ["Defensoría del Pueblo: aborto y derechos", "https://www.google.com/search?q=Defensoría+del+Pueblo+aborto+Perú"], ["Organización Mundial de la Salud: aborto sin riesgo", "https://www.google.com/search?q=OMS+aborto+sin+riesgo+datos"]];
+
+function BD(p,i){return i===1?["Analiza cómo penalizar o despenalizar el aborto influye en la salud pública: la frecuencia de abortos clandestinos y la mortalidad materna."]:(i<4?p.b.slice(1):p.b)}
+var SEC=[["biografias","Biografías"],["arts","Artículos"],["videos","Videos"],["lecturas","Lecturas"],["comentarios","Comentarios"]];
+$("#indice").innerHTML=SEC.map(function(x,k){return '<a class="ix rv" href="#'+x[0]+'"><b>'+(k+1)+'</b><span>'+x[1]+'</span></a>'}).join("");
+$("#bios").innerHTML=P.map(function(p,i){return '<div class="card rv"><img src="'+AV[i]+'" alt="Avatar de '+p.n+'"><div><h3>'+p.n+'</h3><p>'+BIO[i]+'</p></div></div>'}).join("");
+$("#vids").innerHTML=P.map(function(p,i){return '<a class="card vid rv" href="'+p.yt+'" target="_blank" rel="noopener"><span class="play">▶</span><div><h3>'+p.t+'</h3><p>Video sobre el subtema de '+p.n.split(" ")[0]+'. Se abre en YouTube.</p></div></a>'}).join("");
+$("#lects").innerHTML=LEC.map(function(l){return '<a class="lk rv" href="'+l[1]+'" target="_blank" rel="noopener">'+l[0]+'</a>'}).join("");
+$("#csel").innerHTML=P.map(function(p,i){return '<option value="'+i+'">'+p.t+'</option>'}).join("");
+var CK="comentarios-revista-aborto";
+function cload(){try{return JSON.parse(localStorage.getItem(CK)||"[]")}catch(e){return []}}
+function crender(){var box=$("#clist");box.textContent="";var a=cload();
+ if(!a.length){var e=document.createElement("p");e.className="empty";e.textContent="Aún no hay comentarios. Escribe el primero.";box.appendChild(e);return}
+ a.slice().reverse().forEach(function(c){var d=document.createElement("div");d.className="cm";var b=document.createElement("b");b.textContent=c.n+" · "+P[c.a].t;var t=document.createElement("p");t.textContent=c.t;d.appendChild(b);d.appendChild(t);box.appendChild(d)})}
+$("#csend").addEventListener("click",function(){var n=$("#cname").value.trim()||"Anónimo",t=$("#ctext").value.trim();if(!t){$("#ctext").focus();return}
+ var a=cload();a.push({n:n.slice(0,40),t:t.slice(0,500),a:+$("#csel").value});try{localStorage.setItem(CK,JSON.stringify(a))}catch(e){}
+ $("#ctext").value="";crender()});
+crender();
 
 /* revelar al hacer scroll */
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}})},{threshold:.15});
