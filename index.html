@@ -96,6 +96,8 @@ a{color:inherit}
 .cf button{justify-self:start}
 #clist{max-width:640px;margin-top:1.6rem;display:grid;gap:12px}
 .cm{background:var(--card);border-radius:18px;padding:14px 18px}.cm b{display:block;font-size:.95rem}.cm p{margin:.3rem 0 0;overflow-wrap:anywhere}.empty{color:var(--soft)}
+.dmini{padding:6px 16px;font-size:.85rem;margin-top:1.4rem}
+#dg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:50}#dg.on{display:grid}#dg>div{background:var(--card);color:var(--ink);padding:18px;border-radius:20px;display:grid;gap:10px;width:min(680px,94vw);justify-items:center}#dcv{width:100%;height:auto;touch-action:manipulation;border-bottom:2px solid var(--soft)}#dg small{color:var(--soft);text-align:center}
 #eg{margin-top:2.5rem;border:0;background:none;color:var(--ink);opacity:.04;font-size:14px;cursor:pointer;padding:12px}#eg:hover,#eg:focus-visible{opacity:.35}
 #pw{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:50}#pw.on{display:grid}#pw>div{background:var(--card);color:var(--ink);padding:24px;border-radius:20px;display:grid;gap:10px;width:min(320px,90vw);text-align:left}#pw input{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--soft);border-radius:12px;padding:10px 12px}#pw small{min-height:1.2em;color:var(--soft)}
 footer{padding:8vw 6vw;text-align:center}
@@ -154,7 +156,8 @@ footer p{color:var(--soft)}
   <h2>Gracias por leer</h2>
   <p>El aborto involucra derechos, salud y vida humana. Conocer todas las posturas ayuda a decidir con criterio.</p>
   <a class="top" href="#">Volver arriba</a>
-  <br><button id="eg" type="button" aria-label="Acceso">●</button>
+  <br><button class="lk dmini" id="dBtn" type="button">🦖 Jugar</button> <button id="eg" type="button" aria-label="Acceso">●</button>
+  <div id="dg" role="dialog" aria-label="Juego del dinosaurio"><div><canvas id="dcv" width="640" height="200"></canvas><small>Espacio, flecha arriba o toca la pantalla para saltar. Si chocas, vuelve a saltar para reiniciar.</small><button class="lk dmini" id="dX" type="button">Cerrar</button></div></div>
   <div id="pw" role="dialog" aria-label="Clave"><div><input id="pwi" type="password" placeholder="Clave" autocomplete="off"><button class="lk" id="pwb" type="button">Entrar</button><small id="pwm"></small></div></div>
 </footer>
 
@@ -245,11 +248,40 @@ crender();
 
 var pw=$("#pw"),pwi=$("#pwi");
 function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
-function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe")}else{$("#pwm").textContent="Clave incorrecta"}}
+function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://www.leagueoflegends.com/es-mx/","_blank","noopener")}else{$("#pwm").textContent="Clave incorrecta"}}
 $("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
 $("#pwb").addEventListener("click",pwGo);
 pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
 pw.addEventListener("click",function(e){if(e.target===pw)pwClose()});
+var dg=$("#dg"),cv=$("#dcv"),cx=cv.getContext("2d"),D={},dRaf=0,GY=170;
+function dReset(){D={y:0,vy:0,ob:[],sp:300,sc:0,nx:.8,over:false,last:0}}
+function dStart(){dReset();cancelAnimationFrame(dRaf);D.last=performance.now();dRaf=requestAnimationFrame(dLoop)}
+function dJump(){if(D.over){dStart();return}if(D.y===0)D.vy=620}
+function dClose(){dg.classList.remove("on");cancelAnimationFrame(dRaf)}
+function dLoop(t){
+ var dt=Math.min((t-D.last)/1000,.05);D.last=t;
+ if(!D.over){
+  D.vy-=1700*dt;D.y=Math.max(0,D.y+D.vy*dt);if(D.y===0&&D.vy<0)D.vy=0;
+  D.sc+=dt*10;D.sp=300+D.sc*2;D.nx-=dt;
+  if(D.nx<=0){D.ob.push({x:650,w:16+Math.random()*14,h:30+Math.random()*26});D.nx=.9+Math.random()*1.1}
+  D.ob.forEach(function(o){o.x-=D.sp*dt;if(o.x<70&&o.x+o.w>46&&D.y<o.h-6)D.over=true});
+  D.ob=D.ob.filter(function(o){return o.x>-50});
+ }
+ var c=getComputedStyle(document.documentElement).getPropertyValue("--ink")||"#0F2E3D",y=GY-D.y;
+ cx.clearRect(0,0,640,200);cx.fillStyle=c;
+ cx.fillRect(34,y-22,8,8);cx.fillRect(40,y-32,26,26);cx.fillRect(52,y-48,24,18);
+ var f=D.y===0&&Math.floor(D.sc*2)%2;cx.fillRect(44,y-6,7,6+(f?0:-3)+(f?0:3)*0);cx.fillRect(56,y-6,7,f?3:6);
+ cx.fillStyle="#fff";cx.fillRect(66,y-44,5,5);cx.fillStyle=c;
+ D.ob.forEach(function(o){var oy=GY-o.h;cx.fillRect(o.x,oy,o.w,o.h);cx.fillRect(o.x-7,oy+10,7,5);cx.fillRect(o.x-7,oy+4,4,11);cx.fillRect(o.x+o.w,oy+16,7,5);cx.fillRect(o.x+o.w+3,oy+8,4,13)});
+ cx.font="800 18px sans-serif";cx.textAlign="right";cx.fillText("Puntos: "+Math.floor(D.sc),624,28);
+ if(D.over){cx.textAlign="center";cx.font="800 26px sans-serif";cx.fillText("Fin del juego",320,95)}
+ if(dg.classList.contains("on"))dRaf=requestAnimationFrame(dLoop);
+}
+$("#dBtn").addEventListener("click",function(){dg.classList.add("on");dStart()});
+$("#dX").addEventListener("click",dClose);
+dg.addEventListener("click",function(e){if(e.target===dg)dClose()});
+cv.addEventListener("pointerdown",dJump);
+document.addEventListener("keydown",function(e){if(!dg.classList.contains("on"))return;if(e.key==="Escape")dClose();else if(e.key===" "||e.key==="ArrowUp"){e.preventDefault();dJump()}});
 /* revelar al hacer scroll */
 var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add("on");io.unobserve(x.target)}})},{threshold:.15});
 document.querySelectorAll(".rv").forEach(function(el,i){el.style.transitionDelay=(i%3)*0.08+"s";io.observe(el)});
