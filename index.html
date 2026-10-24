@@ -664,11 +664,12 @@ document.addEventListener("keyup",function(e){
 addEventListener("blur",function(){KEY.l=KEY.r=KEY.d=KEY.f=0});
 
   /* ===== ADAPTADOR ONLINE (Supabase Realtime). Rellena URL y KEY ===== */
+/* ===== ADAPTADOR ONLINE (Supabase Realtime). Rellena URL y KEY ===== */
 (function(){
 var URL="https://cinfoisgocvpuhvpfykz.supabase.co",KEY="sb_publishable_caCLYp8VVlqT4S3jgt8USg_qiN772fg";
 var me=Math.random().toString(36).slice(2,10),st={},list=[],ch=null,ready=null;
 function build(){var s=ch.presenceState(),a=[];for(var k in s){var p=s[k][s[k].length-1];a.push({peer:k,kind:"viewer",isMe:k===me,sameTab:k===me,presence:p.p||{}})}list=a}
-var room={peers:function(){return list},presence:function(patch){for(var k in patch){if(patch[k]===null)delete st[k];else st[k]=patch[k]}return ready.then(function(){return ch.track({p:st})})}};
+var room={peers:function(){var a=list.filter(function(p){return !p.isMe});a.push({peer:me,kind:"viewer",isMe:true,sameTab:true,presence:st});return a},presence:function(patch){for(var k in patch){if(patch[k]===null)delete st[k];else st[k]=patch[k]}if(!room._q){room._q=1;setTimeout(function(){room._q=0;ready.then(function(){ch.track({p:st})})},0)}return Promise.resolve()}};
 window.claude={use:function(n){if(n!=="room")return Promise.resolve(null);if(!ready){var sb=supabase.createClient(URL,KEY);ch=sb.channel("revista-juego",{config:{presence:{key:me}}});ch.on("presence",{event:"sync"},build);ready=new Promise(function(res){ch.subscribe(function(s){if(s==="SUBSCRIBED"){ch.track({p:st});res()}})})}return ready.then(function(){return room})}}
 })();
 
@@ -720,24 +721,28 @@ function story(w){dNew("adv",{story:1,w:Math.min(24,w)})}
 function noRoom(){put(H("Online no disponible","Este modo necesita la revista publicada con salas en tiempo real e iniciar sesión.")+B("leave","Volver"))}
 function lobby(){
  OL.h="";if(!(window.claude&&claude.use))return noRoom();
+ put(H("Conectando…","Buscando partida…")+B("leave","Cancelar"));
  claude.use("room").then(function(r){
   if(!r)return noRoom();
-  RN=r;OL.seen={};pe().forEach(function(p){if(p.presence.go)OL.seen[p.presence.go]=1});
-  RN.presence({st:"lobby",n:NK,go:null,m:null,a:null,d:null});
-  OL.on=1;OL.cd=0;clearInterval(OL.t);OL.t=setInterval(tick,500);tick()
+  RN=r;OL.seen={};OL.rd=0;OL.cd=0;OL.warm=Date.now()+1500;
+  RN.presence({st:"lobby",n:NK,rd:null,go:null,m:null,a:null,d:null});
+  OL.on=1;clearInterval(OL.t);OL.t=setInterval(tick,400);tick()
  }).catch(noRoom)
 }
 function tick(){
  if(!OL.on||!RN)return;
- var all=pe(),L=all.filter(function(p){return p.presence.st==="lobby"}),ng=0;
+ var all=pe(),now=Date.now(),ng=0;
+ if(now<OL.warm){all.forEach(function(p){if(p.presence.go)OL.seen[p.presence.go]=1});put(H("Buscando partida…","Conectando con la sala…")+B("leave","Cancelar"));return}
  all.forEach(function(p){var q=p.presence.go;if(q&&!p.isMe&&!OL.seen[q])ng=q});
  if(ng){OL.seen[ng]=1;begin(ng);return}
- if(L.length>=3){
-  if(!OL.cd)OL.cd=Date.now()+5000;
-  var left=Math.max(0,Math.ceil((OL.cd-Date.now())/1000)),ids=L.map(function(p){return p.peer}).sort(),me=L.filter(function(p){return p.isMe&&p.sameTab})[0];
-  if(left<=0&&me&&me.peer===ids[0]){var id=1+Math.floor(Math.random()*1e9);OL.seen[id]=1;RN.presence({go:id});begin(id);return}
-  put(H("¡Sala lista!","Jugadores: "+L.length+" · empieza en "+left+"…")+B("leave","Salir"))
- }else{OL.cd=0;put(H("Sala online","Esperando jugadores… "+L.length+" de 3 como mínimo. Abre la revista en otros dispositivos.")+B("leave","Salir"))}
+ var L=all.filter(function(p){return p.presence.st==="lobby"}),n=L.length;
+ if(n<3){OL.cd=0;if(OL.rd){OL.rd=0;RN.presence({rd:null})}put(H("Buscando jugadores…","En la sala: "+n+" de 3 como mínimo. Abre la revista en otros dispositivos o ventanas.")+B("leave","Salir"));return}
+ if(!OL.cd)OL.cd=now+5000;
+ var left=Math.max(0,Math.ceil((OL.cd-now)/1000));
+ if(left<=0&&!OL.rd){OL.rd=1;RN.presence({rd:1})}
+ var rdy=L.filter(function(p){return p.presence.rd}).length,ids=L.map(function(p){return p.peer}).sort(),me=L.filter(function(p){return p.isMe})[0];
+ if((rdy===n||(rdy>=3&&now>OL.cd+8000))&&me&&me.peer===ids[0]){var id=1+Math.floor(Math.random()*1e9);OL.seen[id]=1;RN.presence({go:id});begin(id);return}
+ put(H("¡Partida encontrada!",left>0?"Jugadores: "+n+" · empieza en "+left+"…":"Esperando a que todos estén listos ("+rdy+"/"+n+")")+B("leave","Salir"))
 }
 function begin(id){
  OL.on=0;clearInterval(OL.t);OL.mid=id;
