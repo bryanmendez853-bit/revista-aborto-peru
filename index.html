@@ -665,7 +665,7 @@ addEventListener("blur",function(){KEY.l=KEY.r=KEY.d=KEY.f=0});
 
   /* ===== ADAPTADOR ONLINE (Supabase Realtime). Rellena URL y KEY ===== */
 (function(){
-var URL="https://TU-PROYECTO.supabase.co",KEY="TU_ANON_KEY";
+var URL="https://cinfoisgocvpuhvpfykz.supabase.co",KEY="sb_publishable_caCLYp8VVlqT4S3jgt8USg_qiN772fg";
 var me=Math.random().toString(36).slice(2,10),st={},list=[],ch=null,ready=null;
 function build(){var s=ch.presenceState(),a=[];for(var k in s){var p=s[k][s[k].length-1];a.push({peer:k,kind:"viewer",isMe:k===me,sameTab:k===me,presence:p.p||{}})}list=a}
 var room={peers:function(){return list},presence:function(patch){for(var k in patch){if(patch[k]===null)delete st[k];else st[k]=patch[k]}return ready.then(function(){return ch.track({p:st})})}};
