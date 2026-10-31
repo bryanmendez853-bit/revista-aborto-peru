@@ -108,7 +108,12 @@ a{color:inherit}
 #dpad{display:flex;gap:10px;justify-content:center}#dpad button{width:64px;height:48px;border-radius:14px;border:2px solid var(--soft);background:var(--bg);color:var(--ink);font-size:20px;touch-action:none;-webkit-user-select:none;user-select:none;cursor:pointer}#dpad button:active{background:var(--ink);color:var(--bg)}
 @media (hover:hover) and (pointer:fine){#dpad{display:none}}
 #dsnd{border:0;background:none;font-size:20px;line-height:1;cursor:pointer;color:var(--ink);padding:2px 4px}
-#eg,#dBtn{margin-top:2.5rem;border:0;background:none;color:var(--ink);opacity:.04;font:inherit;font-size:14px;cursor:pointer;padding:12px}#eg:hover,#eg:focus-visible,#dBtn:hover,#dBtn:focus-visible{opacity:.35}
+#dBtn{margin-top:2.5rem;border:0;background:var(--magenta);color:#fff;font:700 1.05rem "DM Sans",sans-serif;cursor:pointer;padding:14px 30px;border-radius:999px;box-shadow:0 8px 24px rgba(23,128,124,.35);transition:transform .2s,box-shadow .2s}
+#dBtn:hover,#dBtn:focus-visible{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 28px rgba(23,128,124,.45);outline:none}
+.gamecard{display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:var(--card);border-radius:28px;padding:26px}
+.gamecard .ga{width:110px;height:110px;border-radius:28px;background:var(--lemon);display:grid;place-items:center;font-size:3.2rem;flex:none}
+.gamecard h3{font-size:1.6rem;margin-bottom:.4rem}
+.gamecard p{color:var(--soft);margin:0 0 1.1rem;max-width:52ch}
 #pw{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:50}#pw.on{display:grid}#pw>div{background:var(--card);color:var(--ink);padding:24px;border-radius:20px;display:grid;gap:10px;width:min(320px,90vw);text-align:left}#pw input{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--soft);border-radius:12px;padding:10px 12px}#pw small{min-height:1.2em;color:var(--soft)}
 footer{padding:8vw 6vw;text-align:center}
 footer h2{font-size:clamp(2rem,6vw,4rem);margin-bottom:1rem}
@@ -158,6 +163,18 @@ footer p{color:var(--soft)}
 
 <section class="wrap" id="biografias"><h2 class="rv">Biografías</h2><p class="rv">Quiénes escriben esta edición.</p><div class="grid" id="bios"></div></section>
 <section class="wrap" id="videos"><h2 class="rv">Videos</h2><p class="rv">Un video por subtema. Cada tarjeta abre el video en YouTube.</p><div class="grid" id="vids"></div></section>
+<section class="wrap" id="juego">
+  <h2 class="rv">Juego</h2>
+  <p class="rv">Un minijuego 3D para descansar entre lecturas: salta, esquiva obstáculos y recoge corazones.</p>
+  <div class="gamecard rv">
+    <div class="ga" aria-hidden="true">🎮</div>
+    <div>
+      <h3>Entre la vida y el derecho: la aventura</h3>
+      <p>Elige modo historia, infinito u online. Funciona con teclado o con los botones táctiles del juego.</p>
+      <button class="lk" id="jugar" type="button">Jugar ahora</button>
+    </div>
+  </div>
+</section>
 <section class="wrap" id="lecturas"><h2 class="rv">Lecturas</h2><p class="rv">Fuentes para profundizar. Cada enlace abre directamente el documento o la página.</p><div class="lks" id="lects"></div></section>
 <section class="wrap" id="comentarios"><h2 class="rv">Comentarios</h2><p class="rv">Comparte tu opinión con respeto. Los comentarios se guardan solo en este dispositivo.</p>
 <div class="cf rv"><input id="cname" maxlength="40" placeholder="Tu nombre" aria-label="Tu nombre"><select id="csel" aria-label="Artículo"></select><textarea id="ctext" maxlength="500" rows="3" placeholder="Escribe tu comentario" aria-label="Comentario"></textarea><button class="lk" id="csend" type="button">Publicar comentario</button></div><div id="clist"></div></section>
@@ -167,7 +184,7 @@ footer p{color:var(--soft)}
   <h2>Gracias por leer</h2>
   <p>El aborto involucra derechos, salud y vida humana. Conocer todas las posturas ayuda a decidir con criterio.</p>
   <a class="top" href="#">Volver arriba</a>
-  <br><button id="dBtn" type="button" aria-label="+">+</button> <button id="eg" type="button" aria-label="Acceso">●</button>
+  <br><button id="dBtn" type="button">🎮 Jugar el minijuego</button>
   <div id="dg" role="dialog" aria-label="Juego"><div>
     <div id="dhud"><span id="dh"></span><span id="dl"></span><span id="ds"></span><button id="dsnd" type="button" aria-label="Sonido (tecla M)">🔊</button></div>
     <div id="dbb" hidden><i id="dbi"></i></div>
@@ -176,7 +193,6 @@ footer p{color:var(--soft)}
     <small>← → mover · ↑ o espacio saltar · ↓ caer rápido · X, Z o Shift disparar · recoge corazones · M sonido · Esc cierra</small>
     <button class="lk dmini" id="dX" type="button">Cerrar</button>
   </div></div>
-  <div id="pw" role="dialog" aria-label="Clave"><div><input id="pwi" type="password" placeholder="Clave" autocomplete="off"><button class="lk" id="pwb" type="button">Entrar</button><small id="pwm"></small></div></div>
 </footer>
 
 <script>
@@ -250,7 +266,7 @@ var LEC=[["Código Penal, art. 114: autoaborto y concordancias (LP Derecho)", "h
 
 function BD(p,i){return i===1?["Analiza cómo penalizar o despenalizar el aborto influye en la salud pública: la frecuencia de abortos clandestinos y la mortalidad materna."]:(i<4?p.b.slice(1):p.b)}
 var VT=["Aborto terapéutico en Perú: ¿es legal y quién protege los datos de las pacientes?", "Detrás de las sombras: así funciona el aborto clandestino en el Perú", "El aborto: serie La cultura de la vida, cuestiones de bioética", "El aborto en cifras: encuesta a mujeres en el Perú", "Abortos clandestinos al descubierto (¡Paren Todo!)"];
-var SEC=[["biografias","Biografías"],["arts","Artículos"],["videos","Videos"],["lecturas","Lecturas"],["comentarios","Comentarios"]];
+var SEC=[["biografias","Biografías"],["arts","Artículos"],["videos","Videos"],["juego","Juego"],["lecturas","Lecturas"],["comentarios","Comentarios"]];
 $("#indice").innerHTML=SEC.map(function(x,k){return '<a class="ix rv" href="#'+x[0]+'"><b>'+(k+1)+'</b><span>'+x[1]+'</span></a>'}).join("");
 $("#bios").innerHTML=P.map(function(p,i){return '<div class="card rv"><img src="'+AV[i]+'" alt="Avatar de '+p.n+'"><div><h3>'+p.n+'</h3><p>'+BIO[i]+'</p></div></div>'}).join("");
 $("#vids").innerHTML=P.map(function(p,i){return '<a class="card vid rv" href="'+p.yt+'" target="_blank" rel="noopener"><span class="play">▶</span><div><h3>'+VT[i]+'</h3><p>Subtema de '+p.n.split(" ")[0]+'. Se abre en YouTube.</p></div></a>'}).join("");
@@ -265,14 +281,6 @@ $("#csend").addEventListener("click",function(){var n=$("#cname").value.trim()||
  var a=cload();a.push({n:n.slice(0,40),t:t.slice(0,500),a:+$("#csel").value});try{localStorage.setItem(CK,JSON.stringify(a))}catch(e){}
  $("#ctext").value="";crender()});
 crender();
-
-var pw=$("#pw"),pwi=$("#pwi");
-function pwClose(){pw.classList.remove("on");pwi.value="";$("#pwm").textContent=""}
-function pwGo(){if(pwi.value==="123"){pwClose();window.open("https://lol.secure.dyn.riotcdn.net/channels/public/x/installer/current/live.la1.exe")}}
-$("#eg").addEventListener("click",function(){pw.classList.add("on");pwi.focus()});
-$("#pwb").addEventListener("click",pwGo);
-pwi.addEventListener("keydown",function(e){if(e.key==="Enter")pwGo();if(e.key==="Escape")pwClose()});
-pw.addEventListener("click",function(e){if(e.target===pw)pwClose()});
 
 /* ===== MINIJUEGO 3D: AVENTURA ===== */
 var dg=$("#dg"),cv=$("#dcv"),dMenu=$("#dmenu"),dRaf=0,DL=0,G3=null,D=null,DM="adv",KEY={l:0,r:0,d:0,f:0};
@@ -630,6 +638,7 @@ $("#dBtn").addEventListener("click",function(){
   dInit();DL=performance.now();cancelAnimationFrame(dRaf);dRaf=requestAnimationFrame(dLoop);
  });
 });
+$("#jugar").addEventListener("click",function(){$("#dBtn").click()});
 $("#dX").addEventListener("click",dClose);
 dg.addEventListener("click",function(e){if(e.target===dg)dClose()});
 dMenu.addEventListener("click",function(e){
